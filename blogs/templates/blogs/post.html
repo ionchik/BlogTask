@@ -1,12 +1,18 @@
 {% extends 'blogs/base.html' %}
 
 {% block content %}
-    <div class="container my-3">
-        <h1>Создать пост</h1>
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Опубликовать</button>
-        </form>
+    <div class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h1 class="card-title">Создать пост</h1>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Опубликовать</button>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}

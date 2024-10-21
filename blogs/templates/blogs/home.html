@@ -1,26 +1,34 @@
 {% extends 'blogs/base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1>Посты</h1>
-    <ul class="list-group list-group-flush">
+<div class="container mt-5">
+    <h1 class="mb-4">Посты</h1>
+    <div class="row">
         {% if posts %}
             {% for post in posts %}
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <h2 class="fw-bold">{{ post.title }}</h2>
-                        <small class="text-muted">@{{ post.owner }}, {{ post.date_added }}</small>
-                        <p class="mb-1">{{ post.text|truncatewords:20 }}</p>
-                        {% if request.user == post.owner %}
-                            <small><a class="nav-link" href="{% url 'blogs:edit_post' post.id %}">Изменить</a></small>
-                        {% else %}
-                        {% endif %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title fw-bold">{{ post.title }}</h2>
+                            <p class="card-text">{{ post.text|truncatewords:20 }}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Автор: @{{ post.owner }}</small>
+                            <small class="text-muted">{{ post.date_added }}</small>
+                            {% if request.user == post.owner %}
+                                <a href="{% url 'blogs:edit_post' post.id %}" class="btn btn-sm btn-outline-primary">Изменить</a>
+                            {% endif %}
+                        </div>
                     </div>
-                </li>
+                </div>
             {% endfor %}
         {% else %}
-            <li class="list-group-item">Нет записей</li>
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    Нет записей.
+                </div>
+            </div>
         {% endif %}
-    </ul>
+    </div>
 </div>
 {% endblock %}
