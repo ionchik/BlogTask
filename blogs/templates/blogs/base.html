@@ -5,44 +5,80 @@
     <meta charset="UTF-8">
     <title>KalambetBlog</title>
     {% bootstrap_css %}
+    <style>
+        body {
+            background-color: #f8f9fa; /* Светлый фон страницы */
+        }
+
+        .navbar {
+            border-bottom: 2px solid #007bff; /* Граница снизу навигации */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для навигации */
+        }
+
+        .navbar-brand {
+            font-weight: bold; /* Жирный шрифт для названия */
+            color: #007bff !important; /* Основной цвет для названия */
+        }
+
+        .nav-link {
+            color: #495057 !important; /* Цвет ссылок */
+            transition: color 0.3s; /* Плавный переход цвета */
+        }
+
+        .nav-link:hover {
+            color: #007bff !important; /* Цвет при наведении */
+        }
+
+        .header {
+            padding: 20px 0; /* Отступы для заголовка */
+        }
+
+        .btn-outline-dark {
+            transition: background-color 0.3s, color 0.3s; /* Плавный переход для кнопки выхода */
+        }
+
+        .btn-outline-dark:hover {
+            background-color: #007bff; /* Цвет кнопки при наведении */
+            color: white; /* Цвет текста кнопки при наведении */
+        }
+    </style>
 </head>
 <body>
     {% block header %}
         <header class="header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Главная</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <span class="nav-link disabled">Привет, {{ user.username }}!</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blogs:create_post' %}">Добавить пост</a>
-                    </li>
-                    <li class="nav-item">
-                        <form id="logout-form" action="{% url 'users:logout' %}" method="POST">
-                            {% csrf_token %}
-                            <button class="btn btn-outline-dark" type="submit">Выйти</button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
-
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Главная</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <span class="nav-link disabled">Привет, {{ user.username }}!</span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'blogs:create_post' %}">Добавить пост</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form id="logout-form" action="{% url 'users:logout' %}" method="POST" class="d-inline">
+                                        {% csrf_token %}
+                                        <button class="btn btn-outline-dark" type="submit">Выйти</button>
+                                    </form>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </header>
     {% endblock %}
 
@@ -50,6 +86,7 @@
         {% block content %}
         {% endblock %}
     </main>
-{% bootstrap_javascript %}
+
+    {% bootstrap_javascript %}
 </body>
 </html>

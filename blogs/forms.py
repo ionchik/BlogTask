@@ -10,4 +10,4 @@ class BlogPostForm(forms.ModelForm):
 class BlogEditForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ('text',)
+        fields = ('title', 'text')

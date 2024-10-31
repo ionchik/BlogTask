@@ -2,17 +2,17 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Посты</h1>
+    <h1 class="text-center mb-4" style="color: #343a40;">Посты</h1>
     <div class="row">
         {% if posts %}
             {% for post in posts %}
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 shadow-lg border-0" style="border-radius: 15px; transition: transform 0.2s;">
                         <div class="card-body">
-                            <h2 class="card-title fw-bold">{{ post.title }}</h2>
-                            <p class="card-text">{{ post.text|truncatewords:20 }}</p>
+                            <h2 class="card-title fw-bold" style="color: #007bff;">{{ post.title }}</h2>
+                            <p class="card-text text-muted">{{ post.text|truncatewords:20 }}</p>
                         </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
+                        <div class="card-footer d-flex justify-content-between align-items-center bg-light" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
                             <small class="text-muted">Автор: @{{ post.owner }}</small>
                             <small class="text-muted">{{ post.date_added }}</small>
                             {% if request.user == post.owner %}
@@ -24,11 +24,18 @@
             {% endfor %}
         {% else %}
             <div class="col-12">
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning text-center" role="alert" style="border-radius: 10px;">
                     Нет записей.
                 </div>
             </div>
         {% endif %}
     </div>
 </div>
+
+<style>
+    .card:hover {
+        transform: scale(1.03); /* Увеличение карточки при наведении */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Увеличение тени */
+    }
+</style>
 {% endblock %}

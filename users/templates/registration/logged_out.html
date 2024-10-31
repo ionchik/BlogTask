@@ -2,9 +2,11 @@
 
 {% block content %}
 <div class="container my-5">
-    <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading">Вы вышли из системы</h4>
+    <div class="alert alert-info text-center" role="alert" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <h4 class="alert-heading fw-bold">Вы вышли из системы</h4>
         <p>Вы успешно вышли из своей учетной записи. Надеемся, скоро снова увидеть вас!</p>
+        <hr>
+        <a href="{% url 'users:login' %}" class="btn btn-primary">Вернуться на страницу входа</a>
     </div>
 </div>
 {% endblock %}
