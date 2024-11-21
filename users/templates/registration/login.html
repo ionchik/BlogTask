@@ -4,27 +4,29 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow-sm border-0" style="border-radius: 15px;">
+            <div class="card shadow-lg border-0" style="border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s;">
                 <div class="card-header bg-light" style="border-radius: 15px 15px 0 0;">
-                    <h2 class="card-title text-center">Вход</h2>
+                    <h2 class="card-title text-center" style="color: #007bff;">Вход</h2>
                 </div>
                 <div class="card-body">
                     {% if form.errors %}
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger" role="alert" style="border-radius: 10px;">
                             Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте ещё раз.
                         </div>
                     {% endif %}
                     <form method="post" action="{% url 'users:login' %}">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="id_username" class="form-label">Имя пользователя</label>
+                            <label for="id_username" class="form-label" style="color: #495057;">Имя пользователя</label>
                             <input type="text" name="username" id="id_username" class="form-control" placeholder="Введите имя пользователя" required>
                         </div>
                         <div class="mb-3">
-                            <label for="id_password" class="form-label">Пароль</label>
+                            <label for="id_password" class="form-label" style="color: #495057;">Пароль</label>
                             <input type="password" name="password" id="id_password" class="form-control" placeholder="Введите пароль" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Войти</button>
+                        <button type="submit" class="btn btn-primary w-100" style="border-radius: 30px; padding: 12px 20px; transition: transform 0.3s, background-color 0.3s;">
+                            Войти
+                        </button>
                         <input type="hidden" name="next" value="{% url 'blogs:home' %}">
                     </form>
                 </div>
@@ -32,4 +34,65 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Общие стили для страницы */
+    body {
+        background-color: #f4f7fa; /* Светлый фон страницы */
+    }
+
+    .card {
+        background-color: #ffffff; /* Белый фон карточки */
+        transition: transform 0.3s, box-shadow 0.3s; /* Плавные эффекты */
+    }
+
+    .card:hover {
+        transform: scale(1.02); /* Увеличение карточки при наведении */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Тень при наведении */
+    }
+
+    .card-header {
+        background-color: #f8f9fa; /* Светлый фон заголовка */
+        border-radius: 15px 15px 0 0;
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Основной цвет кнопки */
+        border: none; /* Без рамки */
+        font-size: 1.1rem; /* Увеличенный шрифт */
+        padding: 12px 20px; /* Увеличенные отступы */
+        border-radius: 30px; /* Округлые края кнопки */
+        transition: background-color 0.3s, transform 0.3s; /* Плавные эффекты */
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3; /* Тёмно-синий цвет при наведении */
+        transform: translateY(-2px); /* Легкое поднятие кнопки */
+    }
+
+    .alert-danger {
+        background-color: #f8d7da; /* Мягкий красный фон для ошибки */
+        color: #721c24; /* Красный цвет текста */
+        border: 1px solid #f5c6cb; /* Легкая рамка */
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 576px) {
+        .col-md-6 {
+            width: 100%; /* Ширина 100% на маленьких экранах */
+        }
+
+        .btn-primary {
+            font-size: 1rem; /* Уменьшаем размер кнопки */
+            padding: 10px 15px; /* Уменьшаем отступы */
+        }
+
+        .card-body {
+            padding: 20px; /* Добавляем отступы для мобильных устройств */
+        }
+    }
+</style>
+
 {% endblock %}

@@ -3,90 +3,247 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KalambetBlog</title>
     {% bootstrap_css %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        /* Основные стили */
         body {
-            background-color: #f8f9fa; /* Светлый фон страницы */
+            background-color: #f4f5f7;
+            color: #343a40;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
+        /* Навигация */
         .navbar {
-            border-bottom: 2px solid #007bff; /* Граница снизу навигации */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для навигации */
+            backdrop-filter: blur(10px); /* Эффект размытия */
+            background: rgba(255, 255, 255, 0.85); /* Полупрозрачный фон */
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.85); /* Глубокий фон при прокрутке */
         }
 
         .navbar-brand {
-            font-weight: bold; /* Жирный шрифт для названия */
-            color: #007bff !important; /* Основной цвет для названия */
+            font-size: 26px;
+            font-weight: bold;
+            color: #007bff !important;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #0056b3 !important;
         }
 
         .nav-link {
-            color: #495057 !important; /* Цвет ссылок */
-            transition: color 0.3s; /* Плавный переход цвета */
+            color: #495057 !important;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            position: relative;
         }
 
         .nav-link:hover {
-            color: #007bff !important; /* Цвет при наведении */
+            color: #007bff !important;
         }
 
-        .header {
-            padding: 20px 0; /* Отступы для заголовка */
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #007bff;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .btn-outline-dark {
-            transition: background-color 0.3s, color 0.3s; /* Плавный переход для кнопки выхода */
+            border: 1px solid #007bff;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            height: 38px; /* Установлена одинаковая высота */
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
         }
 
         .btn-outline-dark:hover {
-            background-color: #007bff; /* Цвет кнопки при наведении */
-            color: white; /* Цвет текста кнопки при наведении */
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Кнопка пользователя с улучшенным дизайном */
+        .user-button {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 0 15px;
+            margin-right: 10px;
+            height: 40px; /* Сделали чуть выше */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #d1d1d1; /* Легкая граница */
+        }
+
+        .user-button:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Мягкая тень при наведении */
+        }
+
+        .user-button:active {
+            transform: scale(0.98); /* Легкая анимация сжатия при нажатии */
+        }
+
+        .user-icon {
+            color: #343a40; /* Темный цвет для иконки */
+            font-size: 18px; /* Немного увеличили размер иконки */
+            margin-right: 10px;
+        }
+
+        .user-name {
+            font-size: 14px; /* Уменьшен размер текста */
+            font-weight: 600;
+            color: #343a40;
+            letter-spacing: 0.5px; /* Мелкое межбуквенное пространство */
+        }
+
+        /* FAB-кнопка */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .fab:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .fab:active {
+            transform: scale(1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Адаптивные стили для кнопки внутри бургера */
+        @media (max-width: 991px) {
+            .user-button {
+                width: 100%; /* Растягиваем кнопку на всю ширину */
+                margin-right: 0; /* Убираем отступы справа */
+                margin-bottom: 10px; /* Добавляем небольшой отступ снизу */
+                border-radius: 20px; /* Скругление для мобильных */
+            }
+
+            .user-button .user-name {
+                font-size: 16px; /* Увеличиваем текст на мобильных */
+            }
+
+            .user-button .user-icon {
+                font-size: 20px; /* Увеличиваем иконку на мобильных */
+                margin-right: 10px;
+            }
+        }
+
+        /* Карточки контента */
+        .content-card {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    {% block header %}
-        <header class="header">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">Главная</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            {% if user.is_authenticated %}
-                                <li class="nav-item">
-                                    <span class="nav-link disabled">Привет, {{ user.username }}!</span>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'blogs:create_post' %}">Добавить пост</a>
-                                </li>
-                                <li class="nav-item">
-                                    <form id="logout-form" action="{% url 'users:logout' %}" method="POST" class="d-inline">
-                                        {% csrf_token %}
-                                        <button class="btn btn-outline-dark" type="submit">Выйти</button>
-                                    </form>
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-    {% endblock %}
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">KalambetBlog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <!-- Кнопка выхода с улучшенным дизайном -->
+                            <form id="logout-form" action="{% url 'users:logout' %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button class="user-button" type="submit">
+                                    <i class="user-icon bi bi-box-arrow-right"></i>
+                                    <span class="user-name">{{ user.username }}</span>
+                                </button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <main role="main">
+    <main>
         {% block content %}
+            <div class="content-card">
+                <h2>Пример записи</h2>
+                <p>Это пример содержимого карточки блога. Здесь будет текст вашей записи.</p>
+            </div>
         {% endblock %}
     </main>
 
+    {% if user.is_authenticated %}
+        <a href="{% url 'blogs:create_post' %}" class="fab" aria-label="Добавить пост">+</a>
+    {% endif %}
+
     {% bootstrap_javascript %}
+    <script>
+        window.addEventListener("scroll", function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

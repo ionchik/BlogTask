@@ -2,11 +2,59 @@
 
 {% block content %}
 <div class="container my-5">
-    <div class="alert alert-info text-center" role="alert" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <h4 class="alert-heading fw-bold">Вы вышли из системы</h4>
-        <p>Вы успешно вышли из своей учетной записи. Надеемся, скоро снова увидеть вас!</p>
+    <div class="alert alert-info text-center" role="alert" style="border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;">
+        <h4 class="alert-heading fw-bold" style="color: #007bff;">Вы вышли из системы</h4>
+        <p style="font-size: 1.1rem; color: #495057;">Вы успешно вышли из своей учетной записи. Надеемся, скоро снова увидеть вас!</p>
         <hr>
-        <a href="{% url 'users:login' %}" class="btn btn-primary">Вернуться на страницу входа</a>
+        <a href="{% url 'users:login' %}" class="btn btn-primary" style="border-radius: 30px; padding: 12px 20px; font-size: 1.1rem; transition: transform 0.3s, background-color 0.3s;">
+            Вернуться на страницу входа
+        </a>
     </div>
 </div>
+
+<style>
+    /* Общие стили для страницы */
+    .alert-info {
+        background-color: #e9f7ff; /* Мягкий голубой фон */
+        color: #495057; /* Тёмно-серый цвет текста */
+        border: 1px solid #bee1f7; /* Легкая рамка вокруг */
+        font-size: 1rem; /* Увеличенный шрифт для лучшей читаемости */
+    }
+
+    .alert-heading {
+        color: #007bff; /* Синий цвет заголовка */
+    }
+
+    .alert p {
+        color: #495057;
+    }
+
+    /* Стиль для кнопки */
+    .btn-primary {
+        background-color: #007bff; /* Основной цвет кнопки */
+        border: none; /* Без рамки */
+        font-size: 1.1rem; /* Увеличенный шрифт */
+        padding: 12px 20px; /* Увеличенные отступы */
+        border-radius: 30px; /* Округлые края кнопки */
+        transition: background-color 0.3s, transform 0.3s; /* Плавные эффекты */
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3; /* Тёмно-синий цвет при наведении */
+        transform: translateY(-2px); /* Легкое поднятие кнопки */
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 576px) {
+        .alert-info {
+            font-size: 0.9rem; /* Уменьшаем размер текста на мобильных */
+        }
+
+        .btn-primary {
+            font-size: 1rem; /* Уменьшаем размер кнопки на мобильных */
+            padding: 10px 15px; /* Уменьшаем отступы */
+        }
+    }
+</style>
+
 {% endblock %}

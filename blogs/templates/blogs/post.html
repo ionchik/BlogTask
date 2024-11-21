@@ -2,31 +2,31 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4" style="color: #343a40;">Создать пост</h1>
+    <h1 class="text-center mb-4" style="color: #343a40; font-weight: 700;">Создать пост</h1>
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
-            <div class="card shadow-lg border-0" style="border-radius: 15px;">
+            <div class="card shadow-lg border-0" style="border-radius: 20px; transition: transform 0.3s, box-shadow 0.3s;">
                 <div class="card-body">
                     <form method="post" action="{% url 'blogs:create_post' %}">
                         {% csrf_token %}
 
                         <div class="mb-4">
-                            <label for="id_title" class="form-label fw-bold">Заголовок</label>
+                            <label for="id_title" class="form-label fw-bold" style="color: #495057;">Заголовок</label>
                             <input type="text" name="title" id="id_title" class="form-control" placeholder="Введите заголовок" required>
                             {% if form.title.errors %}
-                                <div class="text-danger">{{ form.title.errors }}</div>
+                                <div class="text-danger mt-2" style="font-size: 0.875rem;">{{ form.title.errors }}</div>
                             {% endif %}
                         </div>
 
                         <div class="mb-4">
-                            <label for="id_text" class="form-label fw-bold">Текст поста</label>
+                            <label for="id_text" class="form-label fw-bold" style="color: #495057;">Текст поста</label>
                             <textarea name="text" id="id_text" class="form-control" placeholder="Введите текст поста" rows="5" required></textarea>
                             {% if form.text.errors %}
-                                <div class="text-danger">{{ form.text.errors }}</div>
+                                <div class="text-danger mt-2" style="font-size: 0.875rem;">{{ form.text.errors }}</div>
                             {% endif %}
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100" style="border-radius: 30px; transition: all 0.3s ease;">
+                        <button type="submit" class="btn btn-primary w-100" style="border-radius: 30px; padding: 12px; transition: all 0.3s ease;">
                             Создать пост
                         </button>
                     </form>
@@ -37,6 +37,7 @@
 </div>
 
 <style>
+    /* Общий стиль для страницы */
     body {
         background-color: #f4f7fa; /* Светлый фон страницы */
     }
@@ -44,36 +45,63 @@
     .card {
         background-color: #ffffff; /* Белый фон карточки */
         transition: transform 0.3s, box-shadow 0.3s; /* Плавные эффекты при наведении */
+        border-radius: 20px; /* Округлые углы */
     }
 
     .card:hover {
-        transform: scale(1.02); /* Увеличение карточки при наведении */
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Увеличение тени */
+        transform: scale(1.03); /* Легкое увеличение карточки при наведении */
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1); /* Увеличенная тень */
     }
 
+    /* Стилизация меток */
     .form-label {
-        color: #495057; /* Цвет меток */
+        font-size: 1rem;
+        font-weight: 600;
+        color: #495057;
     }
 
+    /* Стили для кнопки */
     .btn-primary {
         background-color: #007bff; /* Основной цвет кнопки */
         border: none; /* Без границы */
+        color: white; /* Белый текст */
+        font-size: 1.1rem; /* Размер шрифта */
+        padding: 12px 20px; /* Увеличенный отступ */
         transition: background-color 0.3s, transform 0.3s; /* Плавный переход цвета */
     }
 
     .btn-primary:hover {
         background-color: #0056b3; /* Цвет кнопки при наведении */
-        transform: translateY(-2px); /* Легкое поднятие кнопки при наведении */
+        transform: translateY(-2px); /* Легкое поднятие кнопки */
     }
 
+    /* Стили для текста ошибки */
     .text-danger {
         font-size: 0.875rem; /* Размер текста ошибок */
     }
 
+    /* Адаптивность для мобильных устройств */
     @media (max-width: 576px) {
         .col-md-10 {
             width: 100%; /* Ширина 100% на маленьких экранах */
         }
+
+        .form-control {
+            font-size: 0.95rem; /* Уменьшение шрифта на мобильных устройствах */
+        }
+
+        .btn-primary {
+            font-size: 1rem; /* Уменьшение размера кнопки */
+            padding: 10px 15px; /* Уменьшение отступов на маленьких экранах */
+        }
+    }
+
+    /* Стили для меток ошибок */
+    .text-danger {
+        font-size: 0.875rem;
+        color: #dc3545;
+        margin-top: 5px;
     }
 </style>
+
 {% endblock %}

@@ -2,21 +2,24 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4" style="color: #343a40;">Посты</h1>
+    <h1 class="text-center mb-4" style="color: #343a40; font-weight: 700;">Посты</h1>
     <div class="row">
         {% if posts %}
             {% for post in posts %}
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-lg border-0" style="border-radius: 15px; transition: transform 0.2s;">
+                    <div class="card h-100 shadow-lg border-0" style="border-radius: 20px; transition: transform 0.3s, box-shadow 0.3s;">
                         <div class="card-body">
-                            <h2 class="card-title fw-bold" style="color: #007bff;">{{ post.title }}</h2>
-                            <p class="card-text text-muted">{{ post.text|truncatewords:20 }}</p>
+                            <h2 class="card-title fw-bold" style="color: #007bff; font-size: 1.25rem;">{{ post.title }}</h2>
+                            <p class="card-text text-muted" style="font-size: 0.95rem;">{{ post.text|truncatewords:20 }}</p>
+                            {% if post.category %}
+                                <span class="badge bg-primary">{{ post.category }}</span>
+                            {% endif %}
                         </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center bg-light" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
-                            <small class="text-muted">Автор: @{{ post.owner }}</small>
-                            <small class="text-muted">{{ post.date_added }}</small>
+                        <div class="card-footer d-flex justify-content-between align-items-center bg-light" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                            <small class="text-muted" style="font-size: 0.85rem;">Автор: @{{ post.owner }}</small>
+                            <small class="text-muted" style="font-size: 0.85rem;">{{ post.date_added }}</small>
                             {% if request.user == post.owner %}
-                                <a href="{% url 'blogs:edit_post' post.id %}" class="btn btn-sm btn-outline-primary">Изменить</a>
+                                <a href="{% url 'blogs:edit_post' post.id %}" class="btn btn-sm btn-outline-primary" style="font-size: 0.85rem; padding: 5px 10px;">Изменить</a>
                             {% endif %}
                         </div>
                     </div>
@@ -24,7 +27,7 @@
             {% endfor %}
         {% else %}
             <div class="col-12">
-                <div class="alert alert-warning text-center" role="alert" style="border-radius: 10px;">
+                <div class="alert alert-warning text-center" role="alert" style="border-radius: 10px; font-size: 1.1rem;">
                     Нет записей.
                 </div>
             </div>
@@ -33,9 +36,59 @@
 </div>
 
 <style>
+    /* Улучшенные стили для карточек */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
     .card:hover {
-        transform: scale(1.03); /* Увеличение карточки при наведении */
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Увеличение тени */
+        transform: scale(1.05); /* Легкое увеличение при наведении */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Яркая тень */
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-footer {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-outline-primary {
+        transition: background-color 0.3s, color 0.3s;
+        font-weight: 600;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 767px) {
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-footer {
+            font-size: 0.8rem;
+        }
+
+        .btn-outline-primary {
+            font-size: 0.8rem;
+        }
+    }
+
+    /* Стиль для меток категорий */
+    .badge {
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 15px;
     }
 </style>
 {% endblock %}
